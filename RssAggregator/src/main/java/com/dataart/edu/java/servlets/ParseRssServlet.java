@@ -1,5 +1,7 @@
 package com.dataart.edu.java.servlets;
 
+import com.dataart.edu.java.domain.Channel;
+import com.dataart.edu.java.service.ChannelManager;
 import java.io.IOException;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -7,12 +9,19 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import com.dataart.edu.java.models.*;
 import java.util.List;
 
 @WebServlet("/parseRss")
 public class ParseRssServlet extends HttpServlet 
 {
+	private ChannelManager manager;
+	
+	@Override
+	public void init() throws ServletException 
+	{
+		manager = new ChannelManager();
+	}
+	
 	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 		throws ServletException, IOException
@@ -36,8 +45,7 @@ public class ParseRssServlet extends HttpServlet
 		channelId = (channelIdParam == null || channelIdParam.equals("all")) ?
 				0 :
 				Integer.parseInt(channelIdParam);
-		User user = new User(userId);
-		List<Channel> channels = user.getChannels();
+		List<Channel> channels = manager.getChannels(userId);
 		request.setAttribute("channels", channels);
 		request.setAttribute("channelId", channelId);
 		RequestDispatcher dispatcher = request.getRequestDispatcher("/showNews");

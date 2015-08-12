@@ -15,7 +15,7 @@
                 <label>Password</label>
                 <input type="password" name="password" class="data">
             </p>
-            <input type="submit" value="Enter" disabled="true" class="btn">
+            <input type="submit" value="Enter" class="btn" disabled>
         </form>
         <script charset="utf-8" src="js/checkInput.js"></script>
     </body>

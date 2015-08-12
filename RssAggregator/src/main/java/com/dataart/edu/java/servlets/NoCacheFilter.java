@@ -14,7 +14,7 @@ import javax.servlet.http.HttpServletResponse;
 public class NoCacheFilter implements Filter
 {
 	@Override
-	public void init(final FilterConfig filterConfig)
+	public void init(final FilterConfig filterConfig) throws ServletException
 	{
 	}
 	
@@ -35,3 +35,4 @@ public class NoCacheFilter implements Filter
 	{
 	}
 }
+

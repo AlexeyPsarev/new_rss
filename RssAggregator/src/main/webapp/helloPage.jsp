@@ -9,9 +9,9 @@
     <body>
         <form action="autodelete" method="POST">
             <p>
-                <c:out value="Hello, ${fullName}"/>
+                <c:out value="Hello, ${user.fullName}"/>
             </p>
-            <input type="hidden" value=${userId} name="userId">
+            <input type="hidden" value="${user.id}" name="userId">
             <input type="submit" value="Continue">
         </form>
     </body>

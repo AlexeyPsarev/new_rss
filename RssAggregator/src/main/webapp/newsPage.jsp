@@ -1,9 +1,9 @@
+<!DOCTYPE html>
 <%@page import="java.net.URLDecoder"%>
 <%@page contentType="text/html; charset=UTF-8" language="java" pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@page import="java.util.List"%>
-<%@page import="com.dataart.edu.java.models.Channel"%>
-<!DOCTYPE html>
+<%@page import="com.dataart.edu.java.domain.Channel"%>
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -29,8 +29,8 @@
     </head>
     <body>
         <div id="common">
-            <input type="hidden" name="userId" value=${userId}>
-            <input type="hidden" name="dateSort" value=${orderValue}>
+            <input type="hidden" name="userId" value="${userId}">
+            <input type="hidden" name="dateSort" value="${orderValue}">
         </div>
         <div style="float: left; width: 800px">
             <div style="text-align: center">
@@ -125,10 +125,10 @@
             <form action="delChannel" method="POST">
                 <p>
                     <select name="channelItem" id="channelNames"
-                            size=<%= ((List<Channel>)request.getAttribute("channels")).size() + 1 %>>
+                            size=<%= ((List<Channel>)request.getAttribute("channels")).size() + 1 %> >
                         <option value="all" id="0">All</option>
                         <c:forEach var="item" items="${channels}">
-                            <option value=${item.url} id="${item.id}">${item.name}</option>
+                            <option value="${item.url}" id="${item.id}">${item.name}</option>
                         </c:forEach>
                     </select>
                 </p>

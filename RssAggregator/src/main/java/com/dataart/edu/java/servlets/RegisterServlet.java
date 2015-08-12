@@ -7,7 +7,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.dataart.edu.java.models.User;
+import com.dataart.edu.java.domain.User;
+import com.dataart.edu.java.service.UserManager;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import javax.servlet.RequestDispatcher;
@@ -15,6 +16,14 @@ import javax.servlet.RequestDispatcher;
 @WebServlet("/register")
 public class RegisterServlet extends HttpServlet
 {
+	private UserManager manager;
+
+	@Override
+	public void init() throws ServletException 
+	{
+		manager = new UserManager();
+	}
+	
 	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 		throws ServletException, IOException
@@ -62,14 +71,14 @@ public class RegisterServlet extends HttpServlet
 			dispatcher.forward(request, response);
 			return;
 		}		
-		User user = new User(
-			request.getParameter("username"), request.getParameter("password"),
-			request.getParameter("confirm"), request.getParameter("fullName"));
-		if (user.canCreate())
+		User user = new User();
+		user.setUsername(request.getParameter("username"));
+		user.setPassword(request.getParameter("password"));
+		user.setFullName(request.getParameter("fullName"));
+		if (manager.canCreate(user))
 		{
-			user.create();
-			request.setAttribute("userId", user.getId());
-			request.setAttribute("fullName", request.getParameter("fullName"));
+			manager.create(user);
+			request.setAttribute("user", user);
 			dispatcher = request.getRequestDispatcher("helloPage.jsp");
 			dispatcher.forward(request, response);
 		}
