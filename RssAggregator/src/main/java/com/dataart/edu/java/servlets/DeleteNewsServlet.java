@@ -29,9 +29,7 @@ public class DeleteNewsServlet extends HttpServlet
 		request.setCharacterEncoding("UTF-8");
 		int userId = Integer.parseInt(request.getParameter("userId"));
 		String guid = URLEncoder.encode(request.getParameter("newsId"), "UTF-8");
-		NewsNode node = new NewsNode();
-		node.setUserId(userId);
-		node.setGuid(guid);
+		NewsNode node = (new NewsNode.Builder()).setUserId(userId).setGuid(guid).build();
 		manager.deleteNews(node);
 		RequestDispatcher dispatcher = request.getRequestDispatcher("/parseRss");
 		dispatcher.forward(request, response);

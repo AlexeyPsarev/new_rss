@@ -1,7 +1,6 @@
 package com.dataart.edu.java.servlets;
 
 import com.dataart.edu.java.domain.Channel;
-import com.dataart.edu.java.domain.User;
 import com.dataart.edu.java.service.ChannelManager;
 import java.io.IOException;
 import java.util.List;
@@ -29,8 +28,6 @@ public class UpdateNewsServlet extends HttpServlet
 	{
 		request.setCharacterEncoding("UTF-8");
 		int userId = Integer.parseInt(request.getParameter("userId"));
-		User user = new User();
-		user.setId(userId);
 		List<Channel> channels = manager.getChannels(userId);
 		for (Channel ch: channels)
 			manager.update(ch);

@@ -41,19 +41,24 @@ public class UploadServlet extends HttpServlet
 			}
 		}
 
-		try (BufferedReader fileReader = new BufferedReader(
-			new InputStreamReader(fileStream, "UTF-8"))) {
-			String name = fileReader.readLine();
-			String link = fileReader.readLine();
-			List<String> names = new ArrayList<>();
-			List<String> links = new ArrayList<>();
-			while ((name != null) && !(name.isEmpty()) &&
-				(link != null) && !(link.isEmpty()))
-			{
-				names.add(name);
-				links.add(link);
-				name = fileReader.readLine();
-				link = fileReader.readLine();
+		if (fileStream != null)
+		{
+			List<String> names;
+			List<String> links;
+			try (BufferedReader fileReader = new BufferedReader(
+				new InputStreamReader(fileStream, "UTF-8"))) {
+				String name = fileReader.readLine();
+				String link = fileReader.readLine();
+				names = new ArrayList<>();
+				links = new ArrayList<>();
+				while ((name != null) && !(name.isEmpty()) &&
+					(link != null) && !(link.isEmpty()))
+				{
+					names.add(name);
+					links.add(link);
+					name = fileReader.readLine();
+					link = fileReader.readLine();
+				}
 			}
 			request.setAttribute("channelNames", names);
 			request.setAttribute("channelUrls", links);

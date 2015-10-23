@@ -1,22 +1,56 @@
 package com.dataart.edu.java.domain;
 
-import org.apache.commons.codec.digest.DigestUtils;
-
 public class User
 {
-	private int id;
-	private String username;
-	private String password;
-	private String fullName;
-
-	public User()
+	private final int id;
+	private final String username;
+	private final String password;
+	private final String fullName;
+	
+	public static class Builder
 	{
-		id = 0;
+		private int id;
+		private String username;
+		private String password;
+		private String fullName;
+		
+		
+		public Builder setId(int id)
+		{
+			this.id = id;
+			return this;
+		}
+		
+		public Builder setUsername(String username)
+		{
+			this.username = username;
+			return this;
+		}
+		
+		public Builder setPassword(String password)
+		{
+			this.password = password;
+			return this;
+		}
+		
+		public Builder setFullName(String fullName)
+		{
+			this.fullName = fullName;
+			return this;
+		}
+		
+		public User build()
+		{
+			return new User(this);
+		}
 	}
 
-	public void setId(int id)
+	private User(Builder builder)
 	{
-		this.id = id;
+		this.id = builder.id;
+		this.username = builder.username;
+		this.password = builder.password;
+		this.fullName = builder.fullName;
 	}
 	
 	public int getId()
@@ -24,29 +58,14 @@ public class User
 		return id;
 	}
 	
-	public void setUsername(String username)
-	{
-		this.username = username;
-	}
-	
 	public String getUsername()
 	{
 		return username;
 	}
 	
-	public void setPassword(String password)
-	{
-		this.password = DigestUtils.shaHex(password);
-	}
-
 	public String getPassword()
 	{
 		return password;
-	}
-	
-	public void setFullName(String fullName)
-	{
-		this.fullName = fullName;
 	}
 	
 	public String getFullName()

@@ -2,20 +2,54 @@ package com.dataart.edu.java.domain;
 
 public class Channel
 {
-	private int id;
-	private int userId;
-	private	String url;
-	private String name;
+	private final int id;
+	private final int userId;
+	private	final String url;
+	private final String name;
 
-	public Channel()
+	public static class Builder
 	{
-		id = 0;
-		userId = 0;
+		private int id;
+		private int userId;
+		private	String url;
+		private String name;
+
+		public Builder setId(int id)
+		{
+			this.id = id;
+			return this;
+		}
+		
+		public Builder setUserId(int userId)
+		{
+			this.userId = userId;
+			return this;
+		}
+		
+		public Builder setUrl(String url)
+		{
+			this.url = url;
+			return this;
+		}
+		
+		public Builder setName(String name)
+		{
+			this.name = name;
+			return this;
+		}
+		
+		public Channel build()
+		{
+			return new Channel(this);
+		}
 	}
 	
-	public void setId(int id)
+	private Channel(Builder builder)
 	{
-		this.id = id;
+		this.id = builder.id;
+		this.userId = builder.userId;
+		this.url = builder.url;
+		this.name = builder.name;
 	}
 	
 	public int getId()
@@ -23,29 +57,14 @@ public class Channel
 		return id;
 	}
 	
-	public void setUserId(int userId)
-	{
-		this.userId = userId;
-	}
-	
 	public int getUserId()
 	{
 		return userId;
 	}
 	
-	public void setUrl(String url)
-	{
-		this.url = url;
-	}
-	
 	public String getUrl()
 	{
 		return url;
-	}
-	
-	public void setName(String name)
-	{
-		this.name = name;
 	}
 	
 	public String getName()

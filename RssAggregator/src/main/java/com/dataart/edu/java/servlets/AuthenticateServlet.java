@@ -26,12 +26,14 @@ public class AuthenticateServlet extends HttpServlet
 		throws ServletException, IOException
 	{
 		RequestDispatcher dispatcher;
-		User user = new User();
-		user.setUsername(request.getParameter("username"));
-		user.setPassword(request.getParameter("password"));
+		String username = request.getParameter("username");
+		User user = (new User.Builder()).
+			setUsername(username).
+			setPassword(request.getParameter("password")).build();
 		if (manager.authenticate(user))
 		{
-			request.setAttribute("user", user);
+			User authenticatedUser = manager.getUserByName(username);
+			request.setAttribute("user", authenticatedUser);
 			dispatcher = request.getRequestDispatcher("helloPage.jsp");
 			dispatcher.forward(request, response);
 		}

@@ -32,10 +32,15 @@
             <version>2.3</version>
             <scope>provided</scope>
         </dependency>
-        <dependency>
+        <!-- dependency>
             <groupId>mysql</groupId>
             <artifactId>mysql-connector-java</artifactId>
             <version>5.1.36</version>
+        </dependency -->
+        <dependency>
+            <groupId>com.h2database</groupId>
+            <artifactId>h2</artifactId>
+            <version>1.4.190</version>
         </dependency>
         <dependency>
             <groupId>commons-codec</groupId>
@@ -46,7 +51,7 @@
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-jdbc</artifactId>
-            <version>2.0.6</version>
+            <version>4.2.1.RELEASE</version>
         </dependency>
 
     </dependencies>
@@ -61,12 +66,42 @@
         <finalName>rssaggregator</finalName>
         <plugins>
             <plugin>
-                <groupId>org.apache.tomcat.maven</groupId>
-                <artifactId>tomcat7-maven-plugin</artifactId>
-                <version>2.0</version>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>sql-maven-plugin</artifactId>
+                <version>1.5</version>
+
+                <dependencies>
+                    <dependency>
+                        <groupId>com.h2database</groupId>
+                        <artifactId>h2</artifactId>
+                        <version>1.4.190</version>
+                    </dependency>
+                </dependencies>
+
                 <configuration>
-                    <url>http://localhost:8080/rssaggregator</url>
+                    <driver>org.h2.Driver</driver>
+                    <url>jdbc:h2:~/PUBLIC;AUTO_SERVER=TRUE;AUTO_SERVER_PORT=8082;SCHEMA=PUBLIC;DB_CLOSE_ON_EXIT=FALSE</url>
+                    <username>admin</username>
+                    <password>admin</password>
+                    <settingsKey>sensibleKey</settingsKey>
+                    <skip>${maven.test.skip}</skip>
                 </configuration>
+
+                <executions>
+                    <execution>
+                        <id>create-schema</id>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>execute</goal>
+                        </goals>
+                        <configuration>
+                            <autocommit>true</autocommit>
+                            <srcFiles>
+                                <srcFile>src/main/resources/sql/resetDB.sql</srcFile>
+                            </srcFiles>
+                        </configuration>
+                    </execution>
+                </executions>
             </plugin>
         </plugins>
     </build>

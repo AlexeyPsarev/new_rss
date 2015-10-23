@@ -37,7 +37,7 @@
             Full name must contain alphabetic characters and spaces.<br><br>
             
             Password can't contain spaces.<br>
-            Number of characters must be between 4 and 20.
+            Number of characters must be not less than 8.
         </div>
         <script charset="utf-8" src="js/checkInput.js"></script>
     </body>

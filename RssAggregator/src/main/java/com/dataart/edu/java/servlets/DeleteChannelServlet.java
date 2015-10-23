@@ -28,9 +28,7 @@ public class DeleteChannelServlet extends HttpServlet
 		request.setCharacterEncoding("UTF-8");
 		String url = request.getParameter("channelItem");
 		int userId = Integer.parseInt(request.getParameter("userId"));
-		Channel ch = new Channel();
-		ch.setUserId(userId);
-		ch.setUrl(url);
+		Channel ch = (new Channel.Builder()).setUserId(userId).setUrl(url).build();
 		manager.delete(ch);
 		RequestDispatcher dispatcher = request.getRequestDispatcher("/parseRss");
 		dispatcher.forward(request, response);

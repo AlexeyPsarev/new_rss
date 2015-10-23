@@ -2,25 +2,90 @@ package com.dataart.edu.java.domain;
 
 public class NewsNode
 {
-	private int userId;
-	private String guid;
-	private String title;
-	private String link;
-	private String description;
-	private String pubDate;
-	private boolean read;
-	private int channelId;
+	private final int userId;
+	private final String guid;
+	private final String title;
+	private final String link;
+	private final String description;
+	private final String pubDate;
+	private final boolean read;
+	private final int channelId;
 	
-	public NewsNode()
+	public static class Builder
 	{
-		userId = 0;
-		read = false;
-		channelId = 0;
+		private int userId;
+		private String guid;
+		private String title;
+		private String link;
+		private String description;
+		private String pubDate;
+		private boolean read;
+		private int channelId;
+		
+		public Builder setUserId(int uid)
+		{
+			userId = uid;
+			return this;
+		}
+		
+		public Builder setGuid(String id)
+		{
+			guid = id;
+			return this;
+		}
+		
+		public Builder setRead(boolean isRead)
+		{
+			read = isRead;
+			return this;
+		}
+		
+		public Builder setChannelId(int id)
+		{
+			channelId = id;
+			return this;
+		}
+		
+		public Builder setTitle(String title)
+		{
+			this.title = title;
+			return this;
+		}
+		
+		public Builder setLink(String link)
+		{
+			this.link = link;
+			return this;
+		}
+		
+		public Builder setDescription(String desc)
+		{
+			description = desc;
+			return this;
+		}
+		
+		public Builder setPubDate(String date)
+		{
+			pubDate = date;
+			return this;
+		}
+		
+		public NewsNode build()
+		{
+			return new NewsNode(this);
+		}
 	}
 	
-	public void setUserId(int uid)
+	private NewsNode(Builder builder)
 	{
-		userId = uid;
+		this.userId = builder.userId;
+		this.guid = builder.guid;
+		this.title = builder.title;
+		this.link = builder.link;
+		this.description = builder.description;
+		this.pubDate = builder.pubDate;
+		this.read = builder.read;
+		this.channelId = builder.channelId;
 	}
 	
 	public int getUserId()
@@ -28,19 +93,9 @@ public class NewsNode
 		return userId;
 	}
 	
-	public void setGuid(String id)
-	{
-		guid = id;
-	}
-	
 	public String getGuid()
 	{
 		return guid;
-	}
-	
-	public void setRead(boolean isRead)
-	{
-		read = isRead;
 	}
 	
 	public boolean isRead()
@@ -48,19 +103,9 @@ public class NewsNode
 		return read;
 	}
 	
-	public void setChannelId(int id)
-	{
-		channelId = id;
-	}
-	
 	public int getChannelId()
 	{
 		return channelId;
-	}
-	
-	public void setTitle(String title)
-	{
-		this.title = title;
 	}
 	
 	public String getTitle()
@@ -68,29 +113,14 @@ public class NewsNode
 		return title;
 	}
 	
-	public void setLink(String link)
-	{
-		this.link = link;
-	}
-	
 	public String getLink()
 	{
 		return link;
 	}
 	
-	public void setDescription(String desc)
-	{
-		description = desc;
-	}
-	
 	public String getDescription()
 	{
 		return description;
-	}
-	
-	public void setPubDate(String date)
-	{
-		pubDate = date;
 	}
 	
 	public String getPubDate()

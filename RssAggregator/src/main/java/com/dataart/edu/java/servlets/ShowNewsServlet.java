@@ -61,7 +61,7 @@ public class ShowNewsServlet extends HttpServlet
 			page = 1;
 		}
 		int pageCount = manager.getPageCount(
-			userId, channelId, dateSort, keyword, beginDate, endDate);
+			userId, channelId, keyword, beginDate, endDate);
 		List<NewsNode> list = manager.getNews(
 			userId, channelId, page, dateSort, keyword, beginDate, endDate);
 		request.setAttribute("news", list);

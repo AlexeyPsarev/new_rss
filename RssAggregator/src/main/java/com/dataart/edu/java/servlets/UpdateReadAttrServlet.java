@@ -30,10 +30,8 @@ public class UpdateReadAttrServlet extends HttpServlet
 		int userId = Integer.parseInt(request.getParameter("userId"));
 		String guid = URLEncoder.encode(request.getParameter("newsId"), "UTF-8");
 		boolean isRead = Boolean.parseBoolean(request.getParameter("isRead"));
-		NewsNode node = new NewsNode();
-		node.setUserId(userId);
-		node.setGuid(guid);
-		node.setRead(isRead);
+		NewsNode node = (new NewsNode.Builder()).setUserId(userId).
+			setGuid(guid).setRead(isRead).build();
 		manager.setReadAttr(node);
 		RequestDispatcher dispatcher = request.getRequestDispatcher("/parseRss");
 		dispatcher.forward(request, response);

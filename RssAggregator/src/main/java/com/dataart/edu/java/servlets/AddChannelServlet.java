@@ -2,7 +2,6 @@ package com.dataart.edu.java.servlets;
 
 import com.dataart.edu.java.domain.Channel;
 import com.dataart.edu.java.service.ChannelManager;
-
 import java.io.IOException;
 import java.util.List;
 import javax.servlet.RequestDispatcher;
@@ -37,20 +36,19 @@ public class AddChannelServlet extends HttpServlet
 			int length = names.size();
 			for (int i = 0; i < length; ++i)
 			{
-				ch = new Channel();
-				ch.setUserId(Integer.parseInt(request.getAttribute("userId").toString()));
-				ch.setName(names.get(i));
-				ch.setUrl(urls.get(i));
+				ch = (new Channel.Builder()).
+					setUserId(Integer.parseInt(request.getAttribute("userId").toString())).
+					setName(names.get(i)).setUrl(urls.get(i)).build();
 				manager.save(ch);
 				manager.update(ch);
 			}
 		}
 		else
 		{
-			ch = new Channel();
-			ch.setUserId(Integer.parseInt(request.getParameter("userId")));
-			ch.setName(request.getParameter("channelName"));
-			ch.setUrl(request.getParameter("channelUrl"));
+			ch = (new Channel.Builder()).
+				setUserId(Integer.parseInt(request.getParameter("userId"))).
+				setName(request.getParameter("channelName")).
+				setUrl(request.getParameter("channelUrl")).build();
 			manager.save(ch);
 			manager.update(ch);
 		}
