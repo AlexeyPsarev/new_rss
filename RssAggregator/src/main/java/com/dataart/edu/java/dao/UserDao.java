@@ -33,28 +33,26 @@ public class UserDao
 	
 	public String getPassword(String name)
 	{
-		String result = null;
 		try {
-			result = JDBC_TEMPLATE.queryForObject(GET_PASSWORD,
-				new Object[]{URLEncoder.encode(name, "UTF-8")}, String.class);
+			return JDBC_TEMPLATE.queryForObject(GET_PASSWORD, String.class,
+				URLEncoder.encode(name, "UTF-8"));
 		} catch (EmptyResultDataAccessException ee) {
+			return null;
 		} catch (UnsupportedEncodingException ue) {
-			LOGGER.log(Level.SEVERE, ue.getMessage(), ue);
+			throw new RuntimeException(ue);
 		}
-		return result;
 	}
 	
 	public String getSalt(String name)
 	{
-		String result = null;
 		try {
-			result = JDBC_TEMPLATE.queryForObject(GET_SALT,
-				new Object[]{URLEncoder.encode(name, "UTF-8")}, String.class);
+			return JDBC_TEMPLATE.queryForObject(GET_SALT, String.class,
+				URLEncoder.encode(name, "UTF-8"));
 		} catch (EmptyResultDataAccessException ee) {
+			return null;
 		} catch (UnsupportedEncodingException ue) {
-			LOGGER.log(Level.SEVERE, ue.getMessage(), ue);
+			throw new RuntimeException(ue);
 		}
-		return result;
 	}
 	
 	public void saveUser(User user, String pass, String salt)

@@ -99,6 +99,7 @@ public class NewsNodeDao
 				list.add(node);
 			}
 		} catch(DataAccessException ex) {
+			return new LinkedList<>();
 		}
 		return list;
 	}
@@ -107,7 +108,7 @@ public class NewsNodeDao
 	public void save(NewsNode node)
 	{
 		boolean recordExists = JDBC_TEMPLATE.queryForObject(CHECK_NEWS,
-			new Object[]{node.getGuid()}, Integer.class) > 0;
+			Integer.class, node.getGuid()) > 0;
 		if (!recordExists)
 		{
 			String pubDate = node.getPubDate();
@@ -116,7 +117,7 @@ public class NewsNodeDao
 		}
 		
 		recordExists = JDBC_TEMPLATE.queryForObject(CHECK_RELATION,
-			new Object[]{node.getUserId(), node.getGuid()}, Integer.class) > 0;
+			Integer.class, node.getUserId(), node.getGuid()) > 0;
 		if (!recordExists)
 		{
 			JDBC_TEMPLATE.update(INSERT_RELATION,

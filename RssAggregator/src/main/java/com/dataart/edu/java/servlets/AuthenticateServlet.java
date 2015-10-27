@@ -35,12 +35,11 @@ public class AuthenticateServlet extends HttpServlet
 			User authenticatedUser = manager.getUserByName(username);
 			request.setAttribute("user", authenticatedUser);
 			dispatcher = request.getRequestDispatcher("helloPage.jsp");
-			dispatcher.forward(request, response);
 		}
 		else
 		{
 			dispatcher = request.getRequestDispatcher("authFailed.jsp");
-			dispatcher.forward(request, response);
 		}
+		dispatcher.forward(request, response);
 	}
 }

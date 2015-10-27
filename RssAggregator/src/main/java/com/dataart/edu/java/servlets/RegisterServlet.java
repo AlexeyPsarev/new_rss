@@ -29,11 +29,9 @@ public class RegisterServlet extends HttpServlet
 		throws ServletException, IOException
 	{
 		RequestDispatcher dispatcher;
-		
-		Pattern p;
+
 		Matcher m;
-		p = Pattern.compile(USERNAME_PATTERN);
-		m = p.matcher(request.getParameter("username"));
+		m = USERNAME_PATTERN.matcher(request.getParameter("username"));
 		if (!m.matches())
 		{
 			request.setAttribute("msg", BAD_USERNAME);
@@ -41,8 +39,7 @@ public class RegisterServlet extends HttpServlet
 			dispatcher.forward(request, response);
 			return;
 		}
-		p = Pattern.compile(FULLNAME_PATTERN);
-		m = p.matcher(request.getParameter("fullName"));
+		m = FULLNAME_PATTERN.matcher(request.getParameter("fullName"));
 		if (!m.matches())
 		{
 			request.setAttribute("msg", BAD_FULLNAME);
@@ -50,8 +47,7 @@ public class RegisterServlet extends HttpServlet
 			dispatcher.forward(request, response);
 			return;
 		}
-		p = Pattern.compile(PASSWORD_PATTERN);
-		m = p.matcher(request.getParameter("password"));
+		m = PASSWORD_PATTERN.matcher(request.getParameter("password"));
 		if (!m.matches())
 		{
 			request.setAttribute("msg", BAD_PASSWORD);
@@ -77,20 +73,19 @@ public class RegisterServlet extends HttpServlet
 			user = manager.getUserByName(user.getUsername()); // set new ID
 			request.setAttribute("user", user);
 			dispatcher = request.getRequestDispatcher("helloPage.jsp");
-			dispatcher.forward(request, response);
 		}
 		else
 		{
 			request.setAttribute("msg", CANNOT_CREATE);
 			dispatcher = request.getRequestDispatcher("cannotRegisterPage.jsp");
-			dispatcher.forward(request, response);
 		}
+		dispatcher.forward(request, response);
 	}
 	
-	private static final String USERNAME_PATTERN =
-		"^(?=.{4,20}$)(?![_.0-9])(?!.*[_.]{2})[a-zA-Z0-9._]+(?<![_.])$";
-	private static final String PASSWORD_PATTERN = "^(?=.{8,}$)([\\S]*)$";
-	private static final String FULLNAME_PATTERN = "^[a-zA-Z ]*$";
+	private static final Pattern USERNAME_PATTERN = Pattern.compile(
+		"^(?=.{4,20}$)(?![_.0-9])(?!.*[_.]{2})[a-zA-Z0-9._]+(?<![_.])$");
+	private static final Pattern PASSWORD_PATTERN = Pattern.compile("^(?=.{8,}$)([\\S]*)$");
+	private static final Pattern FULLNAME_PATTERN = Pattern.compile("^[a-zA-Z ]*$");
 	private static final String BAD_USERNAME =
 		"Forbidden username. Please, try again";
 	private static final String BAD_FULLNAME =
